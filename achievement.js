@@ -581,10 +581,10 @@ const rankClass = color.includes('bronze') ? 'rank-bronze'
         <p style="font-size: 12px; color: #ccc; margin: 0;">${diffData.name}を獲得しました！</p>
         
        <!-- 2. 級の授与（grade が存在する場合のみ表示） -->
-        ${diffData.grade ? `<p style="font-size: 13px; color: #bae6fd; margin: 8px 0 0 0; font-weight: 500;">「${diffData.grade}」の称号が授与されました！</p>` : ''}
+        ${diffData.grade ? `<p style="font-size: 13px; color: #bae6fd; margin: 8px 0 0 0; font-weight: 500;">「${diffData.grade}」の称号が<br>授与されました！</p>` : ''}
         
         <!-- 3. マスター称号の獲得（title が存在する場合のみ表示） -->
-        ${diffData.title ? `<p style="font-size: 12px; color: #ffd700; margin: 2px 0 0 0; font-weight: bold;">称号「${diffData.title}」を獲得しました！</p>` : ''}
+        ${diffData.title ? `<p style="font-size: 12px; color: #ffd700; margin: 2px 0 0 0; font-weight: bold;">称号「${diffData.title}」を<br>獲得しました！</p>` : ''}
 
         <button class="reward-close-btn" onclick="closeRewardModal()" style="margin-top: 15px;">受け取る！</button>
       </div>
