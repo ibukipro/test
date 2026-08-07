@@ -21,20 +21,20 @@ achievementStyle.textContent = `
     z-index: 9999;
   }
 
-  /* ポップアップの箱 */
-  .reward-modal-box {
-    background: #111827;
-    border: 2px solid #facc15;
-    border-radius: 16px;
-    padding: 24px;
-    text-align: center;
-    width: 85%;
-    max-width: 320px;
-    box-shadow: 0 0 30px rgba(250, 204, 21, 0.4);
-    animation: rewardPopUp 0.4s ease-out;
-    color: white;
-    font-family: sans-serif;
-  }
+ /* ポップアップの箱（コンパクト化版） */
+.reward-modal-box {
+  background: #111827;
+  border: 2px solid #facc15;
+  border-radius: 16px;
+  padding: 16px; /* 24px ➔ 16px にして内側の余白をスッキリ */
+  text-align: center;
+  width: 78%;   /* 85% ➔ 78% にして画面左右に適度なゆとりを確保 */
+  max-width: 270px; /* 320px ➔ 270px に縮小 */
+  box-shadow: 0 0 30px rgba(250, 204, 21, 0.4);
+  animation: rewardPopUp 0.4s ease-out;
+  color: white;
+  font-family: sans-serif;
+}
 
   /* メダル枠 */
 .reward-medal-container {
