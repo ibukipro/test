@@ -587,7 +587,7 @@ const rankClass = color.includes('bronze') ? 'rank-bronze'
         ${diffData.title ? `<p style="font-size: 12px; color: #ffd700; margin: 8px 0 0 0; font-weight: bold; line-height: 1.5; white-space: normal;">称号「${diffData.title}」を獲得！</p>` : ''}
 
         <!-- 💡 ボタン（上下マージンを上20px・下10pxに拡張） -->
-        <button class="reward-close-btn" onclick="closeRewardModal()" style="margin: 20px 0 10px 0;">受け取る！</button>
+        <button class="reward-close-btn" onclick="closeRewardModal()" style="margin: 40px 0 20px 0;">受け取る！</button>
       </div>
     </div>
   `;
