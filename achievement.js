@@ -145,23 +145,25 @@ achievementStyle.textContent = `
 
 
 /* ===================================================
-   ✨ エフェクト＆光演出系（元々の光を常時固定＋星演出）
+   ✨ エフェクト＆光演出系（星を最前面に出す修正版）
    =================================================== */
 
 /* 1. 本体（メダル・王冠・トロフィー共通）のコンテナ
-   👉 アニメーションにせず、元々パッと光っていた最大の輝きを常時固定 */
+   💡 z-index: 20 を追加して、外にあるリボンより手前に箱ごと持ち上げる！ */
 .sparkle-frame {
   position: relative;
   display: inline-block;
   filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.9)) brightness(1.25);
+  z-index: 20; /* 👈 これが超重要！ */
 }
 
-/* 2. 手前に浮かぶキラキラ星の共通設定 */
+/* 2. 手前に浮かぶキラキラ星の共通設定
+   💡 z-index を 100 に引き上げて、丸バッジ(z-index:10)よりも手前に出す！ */
 .sparkle-frame .sparkle-star {
   position: absolute;
   font-style: normal;
   color: #ffffff;
-  z-index: 10;
+  z-index: 100; /* 👈 10 から 100 に変更！ */
   pointer-events: none;
   opacity: 0;
   display: block;
@@ -171,7 +173,7 @@ achievementStyle.textContent = `
   text-align: center;
   transform-origin: center center;
 
-  /* 💡 発光の広がりを抑えた金色のシャドウ */
+  /* 発光の広がりを抑えた金色のシャドウ */
   text-shadow: 
     0 0 6px #ffffff,
     0 0 12px #fef08a,
@@ -266,44 +268,65 @@ achievementStyle.textContent = `
 
 
 
-//* ==============================================
-   1. 級バッジ（丸型）＆ 位置調整（上基準で動く設定）
+/* ==============================================
+   アイコン全体を中央寄せするコンテナ
+   ============================================== */
+.reward-medal-container {
+  position: relative;
+  display: block;
+  text-align: center; /* 💡 アイコンを中央に寄せる */
+  margin: 15px 0;
+  padding: 10px;
+}
+
+/* ==============================================
+   1. 級バッジ（丸型）＆ 右下配置
    ============================================== */
 
 /* 💡 アイコン自体をバッジの基準点にする設定 */
 .sparkle-frame {
   position: relative;
+  display: inline-block; /* アイコンの大きさにピッタリ合わせる */
+  z-index: 20;
 }
 
 .badge-grade {
   position: absolute;
   
-  /* 💡 bottom ではなく top（上基準）にするのがコツ！
-     数字を -8px, -12px みたいに増やすとどんどん上に持ち上がります */
-  top: 80px;          
-  right: 5px;        
+  /* 💡 top ではなく bottom（下基準）にすると、アイコンのサイズが変わっても右下に固定されます！ */
+  bottom: 22px;       /* 下からの位置（マイナスにすると少しはみ出る） */
+  right: 55px;        /* 右からの位置（マイナスにすると少しはみ出る） */
   
+  /* 💡 完全な真ん丸をキープする設定 */
   width: 28px;
   height: 28px;
+  min-width: 28px;
+  min-height: 28px;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
-  border: none;       /* 白枠削除 */
+  flex-shrink: 0;
+  box-sizing: border-box;
   
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   
   font-size: 11px;
   font-weight: 900;
+  line-height: 1;
   
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.8);
   white-space: nowrap;
-  z-index: 10;
+  z-index: 30; /* バッジを前面に出す */
 }
 
 /* 2. 【マスター称号】上寄せ調整 */
 .badge-title-container {
-  /* 💡 数字をマイナスに大きくするとアイコンに近づきます（上へ引っ張る） */
-  margin-top: -40px; 
+  margin-top: -30px; /* 💡 アイコンの下にスッキリ重ねる */
+  position: relative;
+  z-index: 10;
+  text-align: center;
 }
 
 .badge-title {
@@ -312,14 +335,10 @@ achievementStyle.textContent = `
   font-size: 10px;
   font-weight: bold;
   letter-spacing: 0.5px;
-  
-  /* V字リボン型 */
   clip-path: polygon(0% 0%, 100% 0%, 92% 50%, 100% 100%, 0% 100%, 8% 50%);
-  
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
   white-space: nowrap;
 }
-
 
 /* ==============================================
    ✨ なめらかツヤツヤグラデーション（決定版）
