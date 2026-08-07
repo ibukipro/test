@@ -321,66 +321,65 @@ function checkAndShowReward(winCount, difficulty = 'easy') {
   // 5勝・10勝・20勝の時だけ発動
   if (winCount !== 5 && winCount !== 10 && winCount !== 20) return;
 
-  // 設定を取得
-  const rewardGroup = REWARD_CONFIG[winCount];
-  const diffData = rewardGroup[difficulty] || rewardGroup.easy;
-
-  // ✨ すべてCSSクラス表示に統一されたため、1行でスッキリ取得できます！
-  const iconHtml = `<div class="${rewardGroup.baseClass} ${diffData.colorClass}"></div>`;
-
-  // （このあとにモーダル表示などの処理が続く...）
-  // 💡 【ここがポイント！】まず最初に前のポップアップと紙吹雪タイマーをリセットする！
-  closeRewardModal();
-
-  // ① 最前面でクラッカー🎉を発射＆連続発射ループを開始
+// ① 最前面でクラッカー🎉を発射＆連続発射ループを開始
   if (typeof confetti === 'function') {
-    const count = winCount === 10 ? 100 : 60;
+    // 💡 画面内に最も綺麗に残る粒数（20連勝は処理落ちしない220発！）
+    const count = winCount === 20 ? 220 : (winCount === 10 ? 120 : 60);
 
     // 1. 最初の下からの豪華なドカン！🎉
     confetti({
       particleCount: count,
       angle: 60,
-      spread: 55,
+      spread: winCount === 20 ? 75 : 55, // 広がり
+      startVelocity: winCount === 20 ? 52 : 45, // 勢いを適度にして画面内に残す
       origin: { x: 0, y: 0.7 },
+      scalar: winCount === 20 ? 1.2 : 1.0, // 粒の大きさも1.2倍くらいが一番綺麗
       zIndex: 99999
     });
     confetti({
       particleCount: count,
       angle: 120,
-      spread: 55,
+      spread: winCount === 20 ? 75 : 55,
+      startVelocity: winCount === 20 ? 52 : 45,
       origin: { x: 1, y: 0.7 },
+      scalar: winCount === 20 ? 1.2 : 1.0,
       zIndex: 99999
     });
 
     // 2. 中央より下まで、ずっと紙吹雪が降り続けるループ✨
+    const loopCount = winCount === 20 ? 4 : (winCount === 10 ? 2 : 1);
+
     window.confettiLoop = setInterval(() => {
       // 【左上の空から発射】
       confetti({
-        particleCount: 2,
+        particleCount: loopCount,
         angle: 60,
         spread: 55,
         origin: { x: 0, y: 0.1 },
         gravity: 0.82,
-        ticks: 500,
+        ticks: 400,
         zIndex: 99999,
-        scalar: 1.15
+        scalar: winCount === 20 ? 1.2 : 1.0
       });
 
       // 【右上の空から発射】
       confetti({
-        particleCount: 2,
+        particleCount: loopCount,
         angle: 120,
         spread: 55,
         origin: { x: 1, y: 0.1 },
         gravity: 0.82,
-        ticks: 500,
+        ticks: 400,
         zIndex: 99999,
-        scalar: 1.15
+        scalar: winCount === 20 ? 1.2 : 1.0
       });
-    }, 220);
+    }, 200);
   } 
 
-  // ② ポップアップ（HTML）を組み立てて表示
+
+
+
+ // ② ポップアップ（HTML）を組み立てて表示
 const modalHtml = `
   <div id="rewardModalOverlay" class="reward-modal-overlay">
     <div class="reward-modal-box">
