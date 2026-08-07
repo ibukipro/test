@@ -321,28 +321,40 @@ function checkAndShowReward(winCount, difficulty = 'easy') {
   // 5勝・10勝・20勝の時だけ発動
   if (winCount !== 5 && winCount !== 10 && winCount !== 20) return;
 
-// ① 最前面でクラッカー🎉を発射＆連続発射ループを開始
+  // 設定を取得
+  const rewardGroup = REWARD_CONFIG[winCount];
+  const diffData = rewardGroup[difficulty] || rewardGroup.easy;
+
+  // ✨ すべてCSSクラス表示に統一されたため、1行でスッキリ取得できます！
+  const iconHtml = `<div class="${rewardGroup.baseClass} ${diffData.colorClass}"></div>`;
+
+    closeRewardModal();
+
+ 
+
+
+ // ① 最前面でクラッカー🎉を発射＆連続発射ループを開始
   if (typeof confetti === 'function') {
-    // 💡 画面内に最も綺麗に残る粒数（20連勝は処理落ちしない220発！）
-    const count = winCount === 20 ? 220 : (winCount === 10 ? 120 : 60);
+    // 💡 最初のドカン！の量（20連勝は圧巻の200発！）
+    const count = winCount === 20 ? 200 : (winCount === 10 ? 110 : 50);
 
     // 1. 最初の下からの豪華なドカン！🎉
     confetti({
       particleCount: count,
       angle: 60,
-      spread: winCount === 20 ? 75 : 55, // 広がり
-      startVelocity: winCount === 20 ? 52 : 45, // 勢いを適度にして画面内に残す
+      spread: 45, // 💡 角度をあえてキュッと絞って密度を最大化！
+      startVelocity: winCount === 20 ? 55 : 45,
       origin: { x: 0, y: 0.7 },
-      scalar: winCount === 20 ? 1.2 : 1.0, // 粒の大きさも1.2倍くらいが一番綺麗
+      scalar: winCount === 20 ? 1.25 : 1.0,
       zIndex: 99999
     });
     confetti({
       particleCount: count,
       angle: 120,
-      spread: winCount === 20 ? 75 : 55,
-      startVelocity: winCount === 20 ? 52 : 45,
+      spread: 45, // 💡 角度をあえてキュッと絞って密度を最大化！
+      startVelocity: winCount === 20 ? 55 : 45,
       origin: { x: 1, y: 0.7 },
-      scalar: winCount === 20 ? 1.2 : 1.0,
+      scalar: winCount === 20 ? 1.25 : 1.0,
       zIndex: 99999
     });
 
@@ -374,12 +386,12 @@ function checkAndShowReward(winCount, difficulty = 'easy') {
         scalar: winCount === 20 ? 1.2 : 1.0
       });
     }, 200);
-  } 
+  }
 
 
 
 
- // ② ポップアップ（HTML）を組み立てて表示
+  // ② ポップアップ（HTML）を組み立てて表示
 const modalHtml = `
   <div id="rewardModalOverlay" class="reward-modal-overlay">
     <div class="reward-modal-box">
