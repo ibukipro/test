@@ -308,8 +308,8 @@ achievementStyle.textContent = `
 
 .badge-title {
   display: inline-block;
-  padding: 4px 18px;
-  font-size: 11px;
+  padding: 2px 18px;
+  font-size: 10px;
   font-weight: bold;
   letter-spacing: 0.5px;
   
