@@ -575,18 +575,19 @@ const rankClass = color.includes('bronze') ? 'rank-bronze'
 
 
 
-        <h2 style="margin: 10px 0 5px 0; font-size: 22px;">${winCount}連勝達成！</h2>
+        <h2 style="margin: 25px 0 15px 0; font-size: 22px;">${winCount}連勝達成！</h2>
     
         <!-- 1. メダル・トロフィー・王冠名 -->
         <p style="font-size: 12px; color: #ccc; margin: 0;">${diffData.name}を獲得しました！</p>
         
-       <!-- 2. 級の授与（grade が存在する場合のみ表示） -->
-        ${diffData.grade ? `<p style="font-size: 13px; color: #bae6fd; margin: 8px 0 0 0; font-weight: 500;">「${diffData.grade}」の称号が<br>授与されました！</p>` : ''}
+      <!-- 2. 級の授与（grade が存在する場合のみ表示） -->
+        ${diffData.grade ? `<p style="font-size: 13px; color: #bae6fd; margin: 10px 0 0 0; font-weight: 500; line-height: 1.5; white-space: normal;">「${diffData.grade}」の称号授与！</p>` : ''}
         
         <!-- 3. マスター称号の獲得（title が存在する場合のみ表示） -->
-        ${diffData.title ? `<p style="font-size: 12px; color: #ffd700; margin: 2px 0 0 0; font-weight: bold;">称号「${diffData.title}」を<br>獲得しました！</p>` : ''}
+        ${diffData.title ? `<p style="font-size: 12px; color: #ffd700; margin: 8px 0 0 0; font-weight: bold; line-height: 1.5; white-space: normal;">称号「${diffData.title}」を獲得！</p>` : ''}
 
-        <button class="reward-close-btn" onclick="closeRewardModal()" style="margin-top: 15px;">受け取る！</button>
+        <!-- 💡 ボタン（上下マージンを上20px・下10pxに拡張） -->
+        <button class="reward-close-btn" onclick="closeRewardModal()" style="margin: 20px 0 10px 0;">受け取る！</button>
       </div>
     </div>
   `;
